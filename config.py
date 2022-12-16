@@ -15,3 +15,6 @@ class DevelopmentConfig(object):
 
     DEBUG = True
     SQLALCHEMY_TRACK_MODIFICATIONS = True
+
+    # service code used for data blocking
+    DATA_BLOCKING_CODE = "FTRS Data Blocking"

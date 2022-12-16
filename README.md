@@ -1,4 +1,4 @@
-# WingTel Coding Challenge
+# WingTel Coding Challenge 2
 
 ## Requirements
 * Python 3.5+
@@ -8,18 +8,12 @@
 Everything is set up, including the database and some seed data. All you need to do is create the virtual environment with the dependencies and then execute `flask run`. Voila!
 
 ## Challenge
-1. Create an endpoint that return usage data for a subscription. This should include the following:
+1. Add a versioning table for subscriptions and service codes so we can track what exact datetime a service code was added or removed from a subscription
 
-- Returns the amount of data usage for a given subscription in gigabytes for the current billing cycle
-- If the subscription is over their allotted data limit of the related plan, this should be indicated in the response
-
-2. Create a function in the tasks directory that checks if subscriptions are over their allotted data usage for the current billing cycle. If they are, they should have the "Data Block" service code applied to the subscription.
+2. Add code for the `monitor_usage_for_data_blocks` task in the `usages.py` tasks file. This should do the following:
+    - Query any subscriptions with the data blocking service code applied
+    - Determine when the subscription has data blocking applied and check if any usage has been added in the DataUsage table since that date (use the versioning table from the previous step to determine when data blocking was applied)
+    - For any subscriptions that have accrued usage during the time it was data blocked, return those subscription ids
 
 ### NOTES:
-- A subscription must be `active`, `suspended`, or `expired` to have any usage data
-- A subscription should not have the data blocking service code applied if it's on an unlimited plan
-
-## Bonuses
-- Extra points for efficiency
-- Add to or modify the schema to optimize usage queries
-- Improve the existing code in general
+- Only `active` subscriptions and subscriptions on a non-unlimited plan need to be checked in the monitoring task

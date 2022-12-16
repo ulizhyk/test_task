@@ -1,4 +1,5 @@
 """Subscription resource for handling any subscription requests"""
+
 from flask import jsonify
 from webargs import fields
 from webargs.flaskparser import use_kwargs
@@ -7,6 +8,7 @@ from flask_restful import Resource
 from src.models.subscriptions import Subscription
 from src.models.utils import get_object_or_404
 from src.schemas.subscriptions import SubscriptionSchema
+from src.tasks.usages import monitor_usage_for_data_blocks
 
 
 class SubscriptionAPI(Resource):

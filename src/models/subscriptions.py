@@ -1,4 +1,5 @@
 """Subscription related models and database functionality"""
+import uuid
 from datetime import datetime
 from enum import Enum
 
@@ -58,3 +59,8 @@ class Subscription(db.Model):
 
         """
         return cls.query.filter(**kwargs).all()
+
+    @property
+    def service_code_names(self):
+        """Helper property to return names of active service codes"""
+        return [code.name for code in self.service_codes]
